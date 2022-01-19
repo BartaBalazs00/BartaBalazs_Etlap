@@ -5,7 +5,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 
-public class HozzaadController {
+public class HozzaadController extends Controller {
     @javafx.fxml.FXML
     private ChoiceBox inputKategoria;
     @javafx.fxml.FXML

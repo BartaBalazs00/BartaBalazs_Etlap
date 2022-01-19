@@ -45,7 +45,7 @@ public class MainController extends Controller{
     @FXML
     public void onHozzadasButtonClick(ActionEvent actionEvent) {
         try {
-            Controller hozzaadas = ujAblak("hozzaad-view.fxml", "Étel hozzáadása", 320, 400);
+            Controller hozzaadas = ujAblak("hozzaad-view.fxml", "Étel hozzáadása", 400, 500);
             hozzaadas.getStage().setOnCloseRequest(event -> etlapListaFeltolt());
             hozzaadas.getStage().show();
         } catch (Exception e) {
