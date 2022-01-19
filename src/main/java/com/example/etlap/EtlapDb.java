@@ -26,4 +26,13 @@ public class EtlapDb {
         }
         return etlap;
     }
+    public int etlapHozzaadasa(String nev, String leiras, String kategoria, int ar) throws SQLException {
+        String sql = "INSERT INTO etlap(nev, leiras, ar, kategoria) VALUES (?,?,?,?)";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setString(1,nev);
+        stmt.setString(2,leiras);
+        stmt.setInt(3,ar);
+        stmt.setString(4,kategoria);
+        return stmt.executeUpdate();
+    }
 }

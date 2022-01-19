@@ -34,7 +34,7 @@
                               <SpinnerValueFactory.IntegerSpinnerValueFactory amountToStepBy="10" initialValue="10" max="999" min="1" />
                           </valueFactory>
                       </Spinner>
-                       <Spinner fx:id="inputForint" editable="true" GridPane.rowIndex="1">
+                       <Spinner fx:id="inputForint" editable="true" prefHeight="26.0" prefWidth="166.0" GridPane.rowIndex="1">
                            <valueFactory>
                                <SpinnerValueFactory.IntegerSpinnerValueFactory amountToStepBy="10" initialValue="10" max="999" min="1" />
                            </valueFactory>

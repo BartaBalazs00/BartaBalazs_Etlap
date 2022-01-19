@@ -25,7 +25,7 @@
         <Label text="Ár" GridPane.rowIndex="3" />
         <Spinner fx:id="inputAr" editable="true" minWidth="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3">
             <valueFactory>
-                <SpinnerValueFactory.IntegerSpinnerValueFactory amountToStepBy="10" initialValue="100" max="999" min="1" />
+                <SpinnerValueFactory.IntegerSpinnerValueFactory amountToStepBy="10" initialValue="100" max="1000000" min="1" />
             </valueFactory>
         </Spinner>
         <ChoiceBox fx:id="inputKategoria" minWidth="100.0" prefWidth="200.0" value="Előétel" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2">
