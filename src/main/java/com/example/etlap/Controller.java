@@ -62,7 +62,7 @@ public abstract class Controller {
     }
     public static Controller ujAblak(String fxml, String title, int width, int height) throws IOException {
         Stage stage = new Stage();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(fxml));
+        FXMLLoader fxmlLoader = new FXMLLoader(EtlapApplication.class.getResource(fxml));
         Scene scene = new Scene(fxmlLoader.load(), width, height);
         stage.setTitle(title);
         stage.setScene(scene);
