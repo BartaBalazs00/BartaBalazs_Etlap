@@ -18,13 +18,14 @@ public class MainController extends Controller{
     @FXML
     private Spinner inputSzazalek;
     @FXML
+    private Spinner inputForint;
+    @FXML
     private TableView etlapTable;
     @FXML
     private TableColumn colAr;
     @FXML
     private TableColumn colKategoria;
-    @FXML
-    private Spinner inputForint;
+
     private EtlapDb db;
 
     public void initialize(){
@@ -40,6 +41,22 @@ public class MainController extends Controller{
     }
     @FXML
     public void onTorlesButtonClick(ActionEvent actionEvent) {
+        int selectedIndex = etlapTable.getSelectionModel().getSelectedIndex();
+        if (selectedIndex == -1){
+            alert("A törléshez előbb válasszon ki egy elemet a táblázatból");
+            return;
+        }
+        Etlap torlendoEtel = (Etlap) etlapTable.getSelectionModel().getSelectedItem();
+        if (!confirm("Biztos hogy törölni szeretné az alábbi ételt: "+torlendoEtel.getNev())){
+            return;
+        }
+        try {
+            db.etelTorlese(torlendoEtel.getId());
+            alert("Sikeres törlés");
+            etlapListaFeltolt();
+        } catch (SQLException e) {
+            hibaKiir(e);
+        }
     }
 
     @FXML
@@ -52,6 +69,46 @@ public class MainController extends Controller{
             hibaKiir(e);
         }
     }
+    public void onSzazalekEmelesButtonClick(ActionEvent actionEvent) {
+        int selectedIndex = etlapTable.getSelectionModel().getSelectedIndex();
+        int szazalek = 0;
+        try {
+            szazalek = (int) inputSzazalek.getValue();
+        } catch (Exception e){
+            alert("A mező kitöltése kötelező, és csak számot fogad el");
+            return;
+        }
+        if(szazalek < 5 || szazalek > 50){
+            alert("A százaléknak nagyobbnak kell lennie mint 5 és kissebbnek mint 50");
+            return;
+        }
+        if (!confirm("Biztos hogy emelni szeretné az árat?")){
+            return;
+        }
+        if(selectedIndex == -1){
+            try {
+                db.szazalekosEmelesMindenre(szazalek);
+                alert("Sikeres emelés");
+                etlapListaFeltolt();
+            } catch (SQLException e) {
+                hibaKiir(e);
+            }
+        } else {
+            Etlap emelendoEtel = (Etlap) etlapTable.getSelectionModel().getSelectedItem();
+            try {
+                db.szazalekosEmelesEgyEtelre(szazalek, emelendoEtel.getId());
+                alert("Sikeres Emelés");
+                etlapListaFeltolt();
+            } catch (SQLException e) {
+                hibaKiir(e);
+            }
+        }
+
+
+    }
+
+    public void onForintEmelesButtonClick(ActionEvent actionEvent) {
+    }
     private void etlapListaFeltolt(){
         try {
             List<Etlap> etlapList = db.getEtlap();
@@ -63,5 +120,6 @@ public class MainController extends Controller{
             hibaKiir(e);
         }
     }
+
 
 }

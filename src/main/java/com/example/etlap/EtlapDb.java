@@ -35,4 +35,24 @@ public class EtlapDb {
         stmt.setString(4,kategoria);
         return stmt.executeUpdate();
     }
+    public boolean etelTorlese(int id) throws SQLException {
+        String sql = "DELETE FROM etlap WHERE id = ?";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setInt(1, id);
+        int erintettSorok = stmt.executeUpdate();
+        return erintettSorok == 1;
+    }
+    public int szazalekosEmelesMindenre(int szazalek) throws SQLException {
+        String sql = "UPDATE etlap SET etlap.ar = etlap.ar * (? / 100 + 1) ";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setInt(1, szazalek);
+        return stmt.executeUpdate();
+    }
+    public int szazalekosEmelesEgyEtelre(int szazalek, int id) throws SQLException {
+        String sql = "UPDATE etlap SET ar = ar * (? / 100 + 1) WHERE id = ?";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setInt(1, szazalek);
+        stmt.setInt(2, id);
+        return stmt.executeUpdate();
+    }
 }

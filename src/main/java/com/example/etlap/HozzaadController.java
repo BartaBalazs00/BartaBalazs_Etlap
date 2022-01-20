@@ -1,22 +1,23 @@
 package com.example.etlap;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 public class HozzaadController extends Controller {
-    @javafx.fxml.FXML
+    @FXML
     private ChoiceBox inputKategoria;
-    @javafx.fxml.FXML
+    @FXML
     private TextArea inputLeiras;
-    @javafx.fxml.FXML
+    @FXML
     private TextField inputNev;
-    @javafx.fxml.FXML
+    @FXML
     private Spinner inputAr;
 
-    @javafx.fxml.FXML
+    @FXML
     public void onHozzadButtonClick(ActionEvent actionEvent) {
         String nev = inputNev.getText().trim();
         String leiras = inputLeiras.getText().trim();
@@ -55,9 +56,9 @@ public class HozzaadController extends Controller {
             EtlapDb db = new EtlapDb();
             int siker = db.etlapHozzaadasa(nev,leiras, kategoria,ar);
             if (siker == 1){
-                alert("Film hozzáadása sikeres");
+                alert("Az étel hozzáadása sikeres");
             } else {
-                alert("Film hozzáadása sikeretelen");
+                alert("Az étel hozzáadása sikeretelen");
             }
         } catch (Exception e) {
             hibaKiir(e);
