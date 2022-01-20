@@ -11,20 +11,33 @@ public class EtlapDb {
         conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/etlapdb","root", "");
     }
     public List<Etlap> getEtlap() throws SQLException {
-        List<Etlap> etlap = new ArrayList<>();
+        List<Etlap> etlapLista = new ArrayList<>();
         Statement stmt = conn.createStatement();
         String sql = "SELECT * FROM etlap INNER JOIN kategoria ON kategoria.id = etlap.kategoria_id;";
         ResultSet result = stmt.executeQuery(sql);
         while (result.next()){
             int id = result.getInt("id");
-            String cim = result.getString("nev");
+            String nev = result.getString("nev");
             String leiras = result.getString("leiras");
             String kategoria = result.getString("kategoria.nev");
             int ar = result.getInt("ar");
-            Etlap film = new Etlap(id, cim,leiras, kategoria, ar);
-            etlap.add(film);
+            Etlap etel = new Etlap(id, nev,leiras, kategoria, ar);
+            etlapLista.add(etel);
         }
-        return etlap;
+        return etlapLista;
+    }
+    public List<Kategoria> getKategoria() throws SQLException {
+        List<Kategoria> kategoriaLista = new ArrayList<>();
+        Statement stmt = conn.createStatement();
+        String sql = "SELECT * FROM kategoria;";
+        ResultSet result = stmt.executeQuery(sql);
+        while (result.next()){
+            int id = result.getInt("id");
+            String nev = result.getString("nev");
+            Kategoria kategoria = new Kategoria(id, nev);
+            kategoriaLista.add(kategoria);
+        }
+        return kategoriaLista;
     }
     public int etlapHozzaadasa(String nev, String leiras, int kategoria, int ar) throws SQLException {
         String sql = "INSERT INTO etlap(nev, leiras, ar, kategoria_id) VALUES (?,?,?,?)";
@@ -35,8 +48,21 @@ public class EtlapDb {
         stmt.setInt(4,kategoria);
         return stmt.executeUpdate();
     }
+    public int kategoriaHozzaAdasa(String nev) throws SQLException {
+        String sql = "INSERT INTO kategoria(nev) VALUES (?)";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setString(1,nev);
+        return stmt.executeUpdate();
+    }
     public boolean etelTorlese(int id) throws SQLException {
         String sql = "DELETE FROM etlap WHERE id = ?";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setInt(1, id);
+        int erintettSorok = stmt.executeUpdate();
+        return erintettSorok == 1;
+    }
+    public boolean kategoriaTorlese(int id) throws SQLException {
+        String sql = "DELETE FROM kategoria WHERE id = ?";
         PreparedStatement stmt = conn.prepareStatement(sql);
         stmt.setInt(1, id);
         int erintettSorok = stmt.executeUpdate();

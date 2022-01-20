@@ -7,4 +7,6 @@ module com.example.etlap {
 
     opens com.example.etlap to javafx.fxml;
     exports com.example.etlap;
+    exports com.example.etlap.controllerek;
+    opens com.example.etlap.controllerek to javafx.fxml;
 }

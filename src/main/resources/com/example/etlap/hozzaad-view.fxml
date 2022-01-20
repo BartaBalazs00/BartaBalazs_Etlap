@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.collections.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane hgap="10.0" vgap="10.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.etlap.HozzaadController">
+<GridPane hgap="10.0" vgap="10.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.etlap.controllerek.HozzaadController">
     <columnConstraints>
         <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0" prefWidth="200.0" />
@@ -28,16 +26,8 @@
                 <SpinnerValueFactory.IntegerSpinnerValueFactory amountToStepBy="10" initialValue="100" max="1000000" min="1" />
             </valueFactory>
         </Spinner>
-        <ChoiceBox fx:id="inputKategoria" minWidth="100.0" prefWidth="200.0" value="Előétel" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2">
-            <items>
-                <FXCollections fx:factory="observableArrayList">
-                    <String fx:value="Előétel" />
-                    <String fx:value="Főétel" />
-                    <String fx:value="Desszert" />
-                </FXCollections>
-            </items>
-        </ChoiceBox>
         <Button minWidth="100.0" mnemonicParsing="false" onAction="#onHozzadButtonClick" prefHeight="26.0" prefWidth="315.0" text="Hozzáadás" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" />
       <TextArea fx:id="inputLeiras" prefHeight="200.0" prefWidth="200.0" promptText="Leírás" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <ComboBox fx:id="inputKategoria" prefHeight="25.0" prefWidth="207.0" GridPane.columnIndex="1" GridPane.rowIndex="2" ></ComboBox>
     </children>
 </GridPane>

@@ -1,5 +1,9 @@
-package com.example.etlap;
+package com.example.etlap.controllerek;
 
+import com.example.etlap.Controller;
+import com.example.etlap.Etlap;
+import com.example.etlap.EtlapDb;
+import com.example.etlap.Kategoria;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -11,7 +15,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.sql.SQLException;
 import java.util.List;
 
-public class MainController extends Controller{
+public class MainController extends Controller {
 
     @FXML
     private TableColumn colNev;
@@ -22,9 +26,13 @@ public class MainController extends Controller{
     @FXML
     private TableView etlapTable;
     @FXML
+    private TableView kategoriaTable;
+    @FXML
     private TableColumn colAr;
     @FXML
     private TableColumn colKategoria;
+    @FXML
+    private TableColumn colKategoriaNev;
 
     private EtlapDb db;
 
@@ -32,15 +40,17 @@ public class MainController extends Controller{
         colNev.setCellValueFactory(new PropertyValueFactory<>("nev"));
         colKategoria.setCellValueFactory(new PropertyValueFactory<>("kategoria"));
         colAr.setCellValueFactory(new PropertyValueFactory<>("ar"));
+        colKategoriaNev.setCellValueFactory(new PropertyValueFactory<>("nev"));
         try {
             db = new EtlapDb();
             etlapListaFeltolt();
+            kategoriaListaFeltolt();
         } catch (SQLException e) {
             hibaKiir(e);
         }
     }
     @FXML
-    public void onTorlesButtonClick(ActionEvent actionEvent) {
+    public void onEtelTorlesButtonClick(ActionEvent actionEvent) {
         int selectedIndex = etlapTable.getSelectionModel().getSelectedIndex();
         if (selectedIndex == -1){
             alert("A törléshez előbb válasszon ki egy elemet a táblázatból");
@@ -58,7 +68,24 @@ public class MainController extends Controller{
             hibaKiir(e);
         }
     }
-
+    public void onKategoriaTorlesButtonClick(ActionEvent actionEvent) {
+        int selectedIndex = kategoriaTable.getSelectionModel().getSelectedIndex();
+        if (selectedIndex == -1){
+            alert("A törléshez előbb válasszon ki egy elemet a táblázatból");
+            return;
+        }
+        Kategoria torlendoKategoria = (Kategoria) kategoriaTable.getSelectionModel().getSelectedItem();
+        if (!confirm("Biztos hogy törölni szeretné az alábbi ételt: "+torlendoKategoria.getNev())){
+            return;
+        }
+        try {
+            db.kategoriaTorlese(torlendoKategoria.getId());
+            alert("Sikeres törlés");
+            kategoriaListaFeltolt();
+        } catch (SQLException e) {
+            hibaKiir(e);
+        }
+    }
     @FXML
     public void onHozzadasButtonClick(ActionEvent actionEvent) {
         try {
@@ -142,12 +169,33 @@ public class MainController extends Controller{
             }
         }
     }
+
+    public void onKategoriaHozzáadásaButtonClick(ActionEvent actionEvent) {
+        try {
+            Controller hozzaadas = ujAblak("kategoria-view.fxml", "Kategoria hozzáadása", 200, 100);
+            hozzaadas.getStage().setOnCloseRequest(event -> kategoriaListaFeltolt());
+            hozzaadas.getStage().show();
+        } catch (Exception e) {
+            hibaKiir(e);
+        }
+    }
     private void etlapListaFeltolt(){
         try {
             List<Etlap> etlapList = db.getEtlap();
             etlapTable.getItems().clear();
             for(Etlap etlap: etlapList){
                 etlapTable.getItems().add(etlap);
+            }
+        } catch (SQLException e) {
+            hibaKiir(e);
+        }
+    }
+    private void kategoriaListaFeltolt(){
+        try {
+            List<Kategoria> kategoriaList = db.getKategoria();
+            kategoriaTable.getItems().clear();
+            for(Kategoria kategoria: kategoriaList){
+                kategoriaTable.getItems().add(kategoria);
             }
         } catch (SQLException e) {
             hibaKiir(e);
