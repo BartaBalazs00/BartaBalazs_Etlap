@@ -108,6 +108,39 @@ public class MainController extends Controller{
     }
 
     public void onForintEmelesButtonClick(ActionEvent actionEvent) {
+        int selectedIndex = etlapTable.getSelectionModel().getSelectedIndex();
+        int forint = 0;
+        try {
+            forint = (int) inputForint.getValue();
+        } catch (Exception e){
+            alert("A mező kitöltése kötelező, és csak számot fogad el");
+            return;
+        }
+        if(forint < 50 || forint > 3000){
+            alert("Az értéknek nagyobbnak kell lennie mint 50 és kissebbnek mint 3000");
+            return;
+        }
+        if (!confirm("Biztos hogy emelni szeretné az árat?")){
+            return;
+        }
+        if(selectedIndex == -1){
+            try {
+                db.fixOsszeguEmelesMindenre(forint);
+                alert("Sikeres emelés");
+                etlapListaFeltolt();
+            } catch (SQLException e) {
+                hibaKiir(e);
+            }
+        } else {
+            Etlap emelendoEtel = (Etlap) etlapTable.getSelectionModel().getSelectedItem();
+            try {
+                db.fixOsszeguEmelesEgyEtelre(forint, emelendoEtel.getId());
+                alert("Sikeres Emelés");
+                etlapListaFeltolt();
+            } catch (SQLException e) {
+                hibaKiir(e);
+            }
+        }
     }
     private void etlapListaFeltolt(){
         try {

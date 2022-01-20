@@ -55,4 +55,17 @@ public class EtlapDb {
         stmt.setInt(2, id);
         return stmt.executeUpdate();
     }
+    public int fixOsszeguEmelesMindenre(int szazalek) throws SQLException {
+        String sql = "UPDATE etlap SET etlap.ar = etlap.ar + ?";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setInt(1, szazalek);
+        return stmt.executeUpdate();
+    }
+    public int fixOsszeguEmelesEgyEtelre(int szazalek, int id) throws SQLException {
+        String sql = "UPDATE etlap SET ar = ar + ? WHERE id = ?";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setInt(1, szazalek);
+        stmt.setInt(2, id);
+        return stmt.executeUpdate();
+    }
 }
