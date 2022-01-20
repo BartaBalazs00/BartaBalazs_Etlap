@@ -18,7 +18,7 @@
         <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <TextField fx:id="inputNev" GridPane.columnIndex="1" />
+        <TextField fx:id="inputNev" promptText="Név" GridPane.columnIndex="1" />
         <Label text="név" />
         <Label text="Leírás" GridPane.rowIndex="1" />
         <Label text="Kategoria" GridPane.rowIndex="2" />
@@ -38,6 +38,6 @@
             </items>
         </ChoiceBox>
         <Button minWidth="100.0" mnemonicParsing="false" onAction="#onHozzadButtonClick" prefHeight="26.0" prefWidth="315.0" text="Hozzáadás" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" />
-      <TextArea fx:id="inputLeiras" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <TextArea fx:id="inputLeiras" prefHeight="200.0" prefWidth="200.0" promptText="Leírás" GridPane.columnIndex="1" GridPane.rowIndex="1" />
     </children>
 </GridPane>
