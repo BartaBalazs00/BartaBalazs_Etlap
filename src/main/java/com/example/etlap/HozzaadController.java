@@ -49,8 +49,8 @@ public class HozzaadController extends Controller {
             alert("Kategória kiválasztása köztelező");
             return;
         }
-        System.out.println(ar);
-        String kategoria = (String) inputKategoria.getValue();
+
+        int kategoria = kategoriaIndex+1;
 
         try {
             EtlapDb db = new EtlapDb();

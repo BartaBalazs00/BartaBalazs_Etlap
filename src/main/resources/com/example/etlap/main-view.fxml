@@ -31,12 +31,12 @@
                    <children>
                       <Spinner fx:id="inputSzazalek" editable="true" prefHeight="26.0" prefWidth="172.0">
                           <valueFactory>
-                              <SpinnerValueFactory.IntegerSpinnerValueFactory amountToStepBy="5" initialValue="5" max="50" min="1" />
+                              <SpinnerValueFactory.IntegerSpinnerValueFactory amountToStepBy="5" initialValue="5" max="50" min="5" />
                           </valueFactory>
                       </Spinner>
                        <Spinner fx:id="inputForint" editable="true" prefHeight="26.0" prefWidth="166.0" GridPane.rowIndex="1">
                            <valueFactory>
-                               <SpinnerValueFactory.IntegerSpinnerValueFactory amountToStepBy="50" initialValue="50" max="3000" min="1" />
+                               <SpinnerValueFactory.IntegerSpinnerValueFactory amountToStepBy="50" initialValue="50" max="3000" min="50" />
                            </valueFactory>
                        </Spinner>
                      <Label text="\%" GridPane.columnIndex="1" />
