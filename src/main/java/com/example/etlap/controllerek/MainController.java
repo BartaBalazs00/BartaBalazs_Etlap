@@ -6,11 +6,10 @@ import com.example.etlap.EtlapDb;
 import com.example.etlap.Kategoria;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.InputMethodEvent;
+import javafx.scene.input.MouseEvent;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -24,15 +23,19 @@ public class MainController extends Controller {
     @FXML
     private Spinner inputForint;
     @FXML
-    private TableView etlapTable;
+    private TableView<Etlap> etlapTable;
     @FXML
-    private TableView kategoriaTable;
+    private TableView<Kategoria> kategoriaTable;
     @FXML
     private TableColumn colAr;
     @FXML
     private TableColumn colKategoria;
     @FXML
     private TableColumn colKategoriaNev;
+    @FXML
+    private TextField leirasTextField;
+    @FXML
+    private ChoiceBox<String> etlapSzures;
 
     private EtlapDb db;
 
@@ -48,6 +51,7 @@ public class MainController extends Controller {
         } catch (SQLException e) {
             hibaKiir(e);
         }
+        etlapSzures.getSelectionModel().selectFirst();
     }
     @FXML
     public void onEtelTorlesButtonClick(ActionEvent actionEvent) {
@@ -190,17 +194,46 @@ public class MainController extends Controller {
             hibaKiir(e);
         }
     }
+    private void szurtEtlapListaFeltolt(String szures){
+        try {
+            List<Etlap> etlapList = db.getSzurtEtlap(szures);
+            etlapTable.getItems().clear();
+            for(Etlap etlap: etlapList){
+                etlapTable.getItems().add(etlap);
+            }
+        } catch (SQLException e) {
+            hibaKiir(e);
+        }
+    }
     private void kategoriaListaFeltolt(){
         try {
             List<Kategoria> kategoriaList = db.getKategoria();
             kategoriaTable.getItems().clear();
+            etlapSzures.getItems().clear();
+            etlapSzures.getItems().add("összes");
             for(Kategoria kategoria: kategoriaList){
                 kategoriaTable.getItems().add(kategoria);
+                etlapSzures.getItems().add(kategoria.getNev());
             }
+            etlapSzures.getSelectionModel().selectFirst();
         } catch (SQLException e) {
             hibaKiir(e);
         }
     }
 
 
+    public void clickItem(MouseEvent mouseEvent) {
+        Etlap kijeloltEtlat = etlapTable.getSelectionModel().getSelectedItem();
+        leirasTextField.setText(kijeloltEtlat.getLeiras());
+    }
+
+    public void onSzuresButtonClick(ActionEvent actionEvent) {
+        String szures = etlapSzures.getSelectionModel().getSelectedItem();
+        if (szures == "összes"){
+            etlapListaFeltolt();
+            return;
+        } else {
+            szurtEtlapListaFeltolt(szures);
+        }
+    }
 }

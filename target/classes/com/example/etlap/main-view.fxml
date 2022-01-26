@@ -55,14 +55,35 @@
          <content>
            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                   <children>
-                      
-                      <TableView fx:id="etlapTable" minHeight="173.0" prefHeight="200.0" prefWidth="500.0">
-                          <columns>
-                              <TableColumn fx:id="colNev" minWidth="50.0" prefWidth="200.0" text="Név" />
-                              <TableColumn fx:id="colKategoria" minWidth="50.0" prefWidth="150.0" text="Kategória" />
-                              <TableColumn fx:id="colAr" minWidth="50.0" prefWidth="148.80001831054688" text="Ár (Ft)" />
-                          </columns>
-                      </TableView>
+                     <VBox maxWidth="500.0" minHeight="200.0" minWidth="500.0" prefHeight="200.0" prefWidth="500.0">
+                        <children>
+                           <HBox prefHeight="100.0" prefWidth="200.0">
+                              <children>
+                                 <ChoiceBox fx:id="etlapSzures" maxWidth="150.0" minWidth="100.0" prefWidth="150.0">
+                                    <opaqueInsets>
+                                       <Insets />
+                                    </opaqueInsets>
+                                    <HBox.margin>
+                                       <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+                                    </HBox.margin>
+                                 </ChoiceBox>
+                                 <Button maxWidth="150.0" minWidth="100.0" mnemonicParsing="false" onAction="#onSzuresButtonClick" prefWidth="150.0" text="Szűrés">
+                                    <HBox.margin>
+                                       <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+                                    </HBox.margin>
+                                 </Button>
+                              </children>
+                           </HBox>
+      
+                            <TableView fx:id="etlapTable" minHeight="173.0" onMouseClicked="#clickItem" prefHeight="200.0" prefWidth="500.0">
+                                <columns>
+                                    <TableColumn fx:id="colNev" minWidth="50.0" prefWidth="200.0" text="Név" />
+                                    <TableColumn fx:id="colKategoria" minWidth="50.0" prefWidth="150.0" text="Kategória" />
+                                    <TableColumn fx:id="colAr" minWidth="50.0" prefWidth="148.80001831054688" text="Ár (Ft)" />
+                                </columns>
+                            </TableView>
+                        </children>
+                     </VBox>
                   </children>
                </AnchorPane>
          </content>
@@ -99,5 +120,5 @@
        </Tab>
      </tabs>
    </TabPane>
-   <TextField maxWidth="500.0" prefHeight="120.0" prefWidth="500.0" />
+   <TextField fx:id="leirasTextField" maxWidth="500.0" prefHeight="120.0" prefWidth="500.0" />
 </VBox>
