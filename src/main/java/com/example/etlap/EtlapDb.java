@@ -17,7 +17,7 @@ public class EtlapDb {
         ResultSet result = stmt.executeQuery(sql);
         while (result.next()){
             int id = result.getInt("id");
-            String nev = result.getString("nev");
+            String nev = result.getString("etlap.nev");
             String leiras = result.getString("leiras");
             String kategoria = result.getString("kategoria.nev");
             int ar = result.getInt("ar");
@@ -28,15 +28,13 @@ public class EtlapDb {
     }
     public List<Etlap> getSzurtEtlap(String szures) throws SQLException {
         List<Etlap> etlapLista = new ArrayList<>();
-        String sql = "SELECT * FROM etlap INNER JOIN kategoria ON kategoria.id = etlap.kategoria_id WHERE kategoria.nev = '?'";
+        String sql = "SELECT * FROM etlap JOIN kategoria ON kategoria.id = etlap.kategoria_id WHERE kategoria.nev = ?;";
         PreparedStatement stmt = conn.prepareStatement(sql);
-
         stmt.setString(1, szures);
-
-        ResultSet result = stmt.executeQuery(sql);
+        ResultSet result = stmt.executeQuery();
         while (result.next()){
             int id = result.getInt("id");
-            String nev = result.getString("nev");
+            String nev = result.getString("etlap.nev");
             String leiras = result.getString("leiras");
             String kategoria = result.getString("kategoria.nev");
             int ar = result.getInt("ar");
